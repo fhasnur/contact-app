@@ -1,11 +1,24 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
+const morgan = require('morgan')
 const app = express()
 const port = 3000
 
 // gunakan ejs
 app.set('view engine', 'ejs')
+
+// third-party middleware
 app.use(expressLayouts)
+app.use(morgan('dev'))
+
+// built-in middleware
+app.use(express.static('public'))
+
+// application level middleware
+app.use((req, res, next) => {
+  console.log('Time', Date.now())
+  next()
+})
 
 app.get('/', (req, res) => {
   /* res.sendFile('./index.html', {root:__dirname}) */
@@ -60,45 +73,3 @@ app.listen(port, () => {
 })
 
 
-
-
-
-
-
-
-// const http = require('http');
-// const fs = require('fs');
-// const port = 3000;
-
-// const renderHTML = (path, res) => {
-//     fs.readFile(path, (err, data) => {
-//         if(err) {
-//             res.writeHead(404);
-//             res.write('Error: file not found');
-//         } else {
-//             res.write(data);
-//         }
-//         res.end();  
-//     })
-// }
-
-// http
-//     .createServer((req, res) => {
-//         res.writeHead(200, {
-//             'Content-Type': 'text/html',
-//         });
-
-//         const url = req.url;
-
-//         if (url === '/about') {
-//             renderHTML('./about.html', res);
-//         } else if (url === '/contact') {
-//             renderHTML('./contact.html', res);
-//         } else {
-//             /* res.write('Hello World'); */
-//             renderHTML('./index.html', res);
-//         }        
-//     })
-//     .listen(port, () => {
-//         console.log('Server is listening on port 3000..');
-//     })
