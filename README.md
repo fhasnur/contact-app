@@ -1,2 +1,2 @@
-# contact-app
+# Contact App
 Simple Contact App
