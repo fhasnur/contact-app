@@ -1,4 +1,2 @@
 # Contact App
-Simple Contact App
-
-Backend : Express JS
+Simple Contact App using Express JS
